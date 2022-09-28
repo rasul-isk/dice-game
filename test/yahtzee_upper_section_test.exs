@@ -18,4 +18,9 @@ defmodule YahtzeeUpperSectionTest do
   test "works with any combination of dice, containing 1-5 ones" do
     Enum.map(1..5, fn n -> assert %{Ones: ^n} = Yahtzee.score_upper(generate(1, n)) end)
   end
+
+  test "works with twos" do
+  Enum.map(1..5, fn n -> assert %{Twos: ^n} = Yahtzee.score_upper(generate(2, n)) end)
+end
+
 end
