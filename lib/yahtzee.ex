@@ -19,7 +19,21 @@ defmodule Yahtzee do
              ) == 1 do
           true ->
             Enum.sum(dices)
-          _ -> 0
+
+          _ ->
+            0
+        end,
+      "Four of a kind":
+        case length(
+               Enum.filter(1..6, fn x ->
+                 length(Enum.filter(dices, fn e -> e == x end)) == 4
+               end)
+             ) == 1 do
+          true ->
+            Enum.sum(dices)
+
+          _ ->
+            0
         end
     }
 end
