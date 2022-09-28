@@ -10,8 +10,16 @@ defmodule Yahtzee do
     }
 
   def score_lower(dices),
-    do:
-    %{
-      "Three of a kind": case length(Enum.filter(dices, fn e -> e == 1 end))==3 do true -> Enum.sum(dices); _ -> 0; end
-  }
+    do: %{
+      "Three of a kind":
+        case length(
+               Enum.filter(1..6, fn x ->
+                 length(Enum.filter(dices, fn e -> e == x end)) == 3
+               end)
+             ) == 1 do
+          true ->
+            Enum.sum(dices)
+          _ -> 0
+        end
+    }
 end
