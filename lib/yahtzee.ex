@@ -47,14 +47,68 @@ defmodule Yahtzee do
     end
   end
 
+  #   def chance_check(_dices) do
+  # #     returned_map =
+
+  #     case 1=1 do
+  #       true -> true
+  #       _ -> false
+  #     end
+  #   end
+
+  def three_of_a_kind(dices) do
+    case length(
+           Enum.filter(1..6, fn x ->
+             length(Enum.filter(dices, fn e -> e == x end)) == 3
+           end)
+         ) == 1 do
+      true -> true
+      _ -> false
+    end
+  end
+
+  def four_of_a_kind(dices) do
+    case length(
+           Enum.filter(1..6, fn x ->
+             length(Enum.filter(dices, fn e -> e == x end)) == 4
+           end)
+         ) == 1 do
+      true -> true
+      _ -> false
+    end
+  end
+
+  def full_house(dices) do
+    case length(
+           Enum.filter(1..6, fn x ->
+             length(Enum.filter(dices, fn e -> e == x end)) == 3
+           end)
+         ) == 1 &&
+           length(
+             Enum.filter(1..6, fn x ->
+               length(Enum.filter(dices, fn e -> e == x end)) == 2
+             end)
+           ) == 1 do
+      true -> true
+      _ -> false
+    end
+  end
+
+  def yahtzee(dices) do
+    case length(
+           Enum.filter(1..6, fn x ->
+             length(Enum.filter(dices, fn e -> e == x end)) == 5
+           end)
+         ) == 1 do
+      true -> true
+      _ -> false
+    end
+  end
+
   def score_lower(dices),
     do: %{
       "Three of a kind":
-        case length(
-               Enum.filter(1..6, fn x ->
-                 length(Enum.filter(dices, fn e -> e == x end)) == 3
-               end)
-             ) == 1 do
+        case three_of_a_kind(dices) do
           true ->
             Enum.sum(dices)
 
@@ -62,11 +116,7 @@ defmodule Yahtzee do
             -1
         end,
       "Four of a kind":
-        case length(
-               Enum.filter(1..6, fn x ->
-                 length(Enum.filter(dices, fn e -> e == x end)) == 4
-               end)
-             ) == 1 do
+        case four_of_a_kind(dices) do
           true ->
             Enum.sum(dices)
 
@@ -74,16 +124,7 @@ defmodule Yahtzee do
             -1
         end,
       "Full house":
-        case length(
-               Enum.filter(1..6, fn x ->
-                 length(Enum.filter(dices, fn e -> e == x end)) == 3
-               end)
-             ) == 1 &&
-               length(
-                 Enum.filter(1..6, fn x ->
-                   length(Enum.filter(dices, fn e -> e == x end)) == 2
-                 end)
-               ) == 1 do
+        case full_house(dices) do
           true -> 25
           _ -> -1
         end,
@@ -98,13 +139,14 @@ defmodule Yahtzee do
           _ -> -1
         end,
       Yahtzee:
-        case length(
-               Enum.filter(1..6, fn x ->
-                 length(Enum.filter(dices, fn e -> e == x end)) == 5
-               end)
-             ) == 1 do
+        case yahtzee(dices) do
           true -> 50
           _ -> -1
         end
+      # Chance:
+      #   case chance_check(dices) do
+      #     true -> Enum.sum(dices)
+      #     _ -> -1
+      #   end
     }
 end
