@@ -96,6 +96,15 @@ defmodule Yahtzee do
         case large_straight(dices) do
           true -> 40
           _ -> -1
+        end,
+      Yahtzee:
+        case length(
+               Enum.filter(1..6, fn x ->
+                 length(Enum.filter(dices, fn e -> e == x end)) == 5
+               end)
+             ) == 1 do
+          true -> 50
+          _ -> -1
         end
     }
 end
