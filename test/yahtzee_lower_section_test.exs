@@ -72,15 +72,15 @@ defmodule YahtzeeLowerSectionTest do
     end)
   end
 
-  # test "Identify any other combination" do
-  #   Enum.map(1..6, fn _ ->
-  #     [x, y, z] =
-  #       Enum.shuffle(1..6)
-  #       |> Enum.take(3)
+  test "Identify any other combination" do
+    Enum.map(1..6, fn _ ->
+      [x, y, z] =
+        Enum.shuffle(1..6)
+        |> Enum.take(3)
 
-  #     seq = Enum.shuffle([x, x, y, y, z])
-  #     sum = Enum.sum(seq)
-  #     assert %{Chance: ^sum} = Yahtzee.score_lower(seq)
-  #   end)
-  # end
+      seq = Enum.shuffle([x, x, y, y, z])
+      sum = Enum.sum(seq)
+      assert %{Chance: ^sum} = Yahtzee.score_lower(seq)
+    end)
+  end
 end

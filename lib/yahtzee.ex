@@ -47,14 +47,21 @@ defmodule Yahtzee do
     end
   end
 
-  #   def chance_check(_dices) do
-  # #     returned_map =
+  def chance_check(dices) do
+    three = !three_of_a_kind(dices)
+    four = !four_of_a_kind(dices)
+    house = !full_house(dices)
+    small = !small_straight(dices)
+    large = !large_straight(dices)
+    yahtzee = !yahtzee(dices)
 
-  #     case 1=1 do
-  #       true -> true
-  #       _ -> false
-  #     end
-  #   end
+    chance = three && four && house && small && large && yahtzee
+
+    case chance do
+      true -> true
+      _ -> false
+    end
+  end
 
   def three_of_a_kind(dices) do
     case length(
@@ -142,11 +149,7 @@ defmodule Yahtzee do
         case yahtzee(dices) do
           true -> 50
           _ -> -1
-        end
-      # Chance:
-      #   case chance_check(dices) do
-      #     true -> Enum.sum(dices)
-      #     _ -> -1
-      #   end
+        end,
+      Chance: Enum.sum(dices)
     }
 end
