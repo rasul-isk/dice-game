@@ -21,7 +21,7 @@ defmodule Yahtzee do
             Enum.sum(dices)
 
           _ ->
-            0
+            -1
         end,
       "Four of a kind":
         case length(
@@ -33,7 +33,7 @@ defmodule Yahtzee do
             Enum.sum(dices)
 
           _ ->
-            0
+            -1
         end,
       "Full house":
         case length(
@@ -47,7 +47,7 @@ defmodule Yahtzee do
                  end)
                ) == 1 do
           true -> 25
-          _ -> 0
+          _ -> -1
         end
     }
 end

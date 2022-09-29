@@ -12,7 +12,6 @@ defmodule YahtzeeLowerSectionTest do
 
   test "Identify 'Three of a kind' with ones" do
     dices = generate(1, 3)
-    IO.inspect(dices)
     sum = Enum.sum(dices)
     assert %{"Three of a kind": ^sum} = Yahtzee.score_lower(dices)
   end
@@ -40,6 +39,18 @@ defmodule YahtzeeLowerSectionTest do
         |> Enum.take(2)
 
       assert %{"Full house": 25} = Yahtzee.score_lower([x, x, x, y, y] |> Enum.shuffle())
+    end)
+
+    assert %{"Full house": -1} = Yahtzee.score_lower([1, 2, 3, 4, 5] |> Enum.shuffle()) # custom test
+  end
+
+  test "Small Straights check" do
+    Enum.map(3, fn ->
+      assert %{"Small straight": 0} = Yahtzee.score_lower([1, 2, 5, 5, 6] |> Enum.shuffle())
+      assert %{"Small straight": 0} = Yahtzee.score_lower([2, 2, 3, 4, 6] |> Enum.shuffle())
+      assert %{"Small straight": 30} = Yahtzee.score_lower([5, 2, 3, 4, 3] |> Enum.shuffle())
+      assert %{"Small straight": 30} = Yahtzee.score_lower([1, 3, 4, 5, 6] |> Enum.shuffle())
+      assert %{"Small straight": 30} = Yahtzee.score_lower([3, 6, 4, 2, 1] |> Enum.shuffle())
     end)
   end
 end
