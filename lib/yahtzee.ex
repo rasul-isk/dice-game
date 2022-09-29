@@ -34,6 +34,20 @@ defmodule Yahtzee do
 
           _ ->
             0
+        end,
+      "Full house":
+        case length(
+               Enum.filter(1..6, fn x ->
+                 length(Enum.filter(dices, fn e -> e == x end)) == 3
+               end)
+             ) == 1 &&
+               length(
+                 Enum.filter(1..6, fn x ->
+                   length(Enum.filter(dices, fn e -> e == x end)) == 2
+                 end)
+               ) == 1 do
+          true -> 25
+          _ -> 0
         end
     }
 end
