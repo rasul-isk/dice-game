@@ -10,7 +10,6 @@ defmodule Yahtzee do
     }
 
   def small_straight(dices) do
-    # name = Enum.join(Enum.sort(dices), "")
     three_and_four = Enum.member?(dices, 3) && Enum.member?(dices, 4)
     two_and_five = Enum.member?(dices, 2) && Enum.member?(dices, 5)
     five_and_six = Enum.member?(dices, 5) && Enum.member?(dices, 6)
@@ -28,6 +27,21 @@ defmodule Yahtzee do
            not_one_or_two) ||
         (one_and_two && not_five_or_six)
     ) do
+      true -> true
+      _ -> false
+    end
+  end
+
+  def large_straight(dices) do
+    three_and_four = Enum.member?(dices, 3) && Enum.member?(dices, 4)
+
+    two_and_five_and_six =
+      Enum.member?(dices, 2) && Enum.member?(dices, 5) && Enum.member?(dices, 6)
+
+    one_and_two_and_five =
+      Enum.member?(dices, 1) && Enum.member?(dices, 2) && Enum.member?(dices, 5)
+
+    case(three_and_four && (two_and_five_and_six || one_and_two_and_five)) do
       true -> true
       _ -> false
     end
@@ -76,6 +90,11 @@ defmodule Yahtzee do
       "Small straight":
         case small_straight(dices) do
           true -> 30
+          _ -> -1
+        end,
+      "Large straight":
+        case large_straight(dices) do
+          true -> 40
           _ -> -1
         end
     }

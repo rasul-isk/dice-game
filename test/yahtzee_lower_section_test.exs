@@ -45,20 +45,24 @@ defmodule YahtzeeLowerSectionTest do
     assert %{"Full house": -1} = Yahtzee.score_lower([1, 2, 3, 4, 5] |> Enum.shuffle())
   end
 
-  test "Small Straights check" do
+  test "Small & Large Straights" do
     Enum.map(1..3, fn _ ->
-      # Not possible cases for small straight
-      assert %{"Small straight": -1} = Yahtzee.score_lower([1, 2, 5, 5, 6] |> Enum.shuffle())
-      assert %{"Small straight": -1} = Yahtzee.score_lower([2, 2, 3, 4, 6] |> Enum.shuffle())
-
       # Possible cases for small straight
       assert %{"Small straight": 30} = Yahtzee.score_lower([5, 2, 3, 4, 3] |> Enum.shuffle())
       assert %{"Small straight": 30} = Yahtzee.score_lower([1, 3, 4, 5, 6] |> Enum.shuffle())
       assert %{"Small straight": 30} = Yahtzee.score_lower([3, 6, 4, 2, 1] |> Enum.shuffle())
 
-      # Will be fixed when large straight implemented
-      # assert %{"Small straight": -1} = Yahtzee.score_lower([1, 2, 3, 4, 5] |> Enum.shuffle())
-      # assert %{"Small straight": -1} = Yahtzee.score_lower([2, 3, 4, 5, 6] |> Enum.shuffle())
+      # Not possible cases for small straight
+      assert %{"Small straight": -1} = Yahtzee.score_lower([1, 2, 5, 5, 6] |> Enum.shuffle())
+      assert %{"Small straight": -1} = Yahtzee.score_lower([2, 2, 3, 4, 6] |> Enum.shuffle())
+
+      # Possible cases for large straight
+      assert %{"Large straight": 40} = Yahtzee.score_lower([1, 2, 3, 4, 5] |> Enum.shuffle())
+      assert %{"Large straight": 40} = Yahtzee.score_lower([2, 3, 4, 5, 6] |> Enum.shuffle())
+
+      # Not possible cases for large straight
+      assert %{"Large straight": -1} = Yahtzee.score_lower([5, 2, 3, 4, 3] |> Enum.shuffle())
+      assert %{"Large straight": -1} = Yahtzee.score_lower([1, 2, 5, 5, 6] |> Enum.shuffle())
     end)
   end
 end
