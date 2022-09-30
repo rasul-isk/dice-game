@@ -11,22 +11,20 @@ defmodule Yahtzee do
 
   def small_straight(dices) do
     three_and_four = Enum.member?(dices, 3) && Enum.member?(dices, 4)
-    two_and_five = Enum.member?(dices, 2) && Enum.member?(dices, 5)
-    five_and_six = Enum.member?(dices, 5) && Enum.member?(dices, 6)
-    one_and_two = Enum.member?(dices, 1) && Enum.member?(dices, 2)
 
-    not_one_or_six = !Enum.member?(dices, 1) || !Enum.member?(dices, 6)
-    not_one_or_two = !Enum.member?(dices, 1) || !Enum.member?(dices, 2)
-    not_five_or_six = !Enum.member?(dices, 5) || !Enum.member?(dices, 6)
+    two_and_five_case =
+      Enum.member?(dices, 2) && Enum.member?(dices, 5) &&
+        (!Enum.member?(dices, 1) || !Enum.member?(dices, 6))
 
-    case(
-      (three_and_four &&
-         (two_and_five &&
-            not_one_or_six)) ||
-        (five_and_six &&
-           not_one_or_two) ||
-        (one_and_two && not_five_or_six)
-    ) do
+    five_and_six_case =
+      Enum.member?(dices, 5) && Enum.member?(dices, 6) &&
+        (!Enum.member?(dices, 1) || !Enum.member?(dices, 2))
+
+    one_and_two_case =
+      Enum.member?(dices, 1) && Enum.member?(dices, 2) &&
+        (!Enum.member?(dices, 5) || !Enum.member?(dices, 6))
+
+    case(three_and_four && (two_and_five_case || five_and_six_case || one_and_two_case)) do
       true -> true
       _ -> false
     end
@@ -136,7 +134,7 @@ defmodule Yahtzee do
           _ -> -1
         end,
       "Small straight":
-        case small_straight(dices) do
+        case !large_straight(dices) && small_straight(dices) do
           true -> 30
           _ -> -1
         end,
