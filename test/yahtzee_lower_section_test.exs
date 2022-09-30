@@ -84,7 +84,7 @@ defmodule YahtzeeLowerSectionTest do
     end)
   end
 
-  test "3 Custom Test Cases" do
+  test "4 Custom Test Cases" do
     # General upper and lower sections check for 0s
     # Test Case #1
     dices_test_one = [6, 6, 6, 6, 6] |> Enum.shuffle()
@@ -118,7 +118,7 @@ defmodule YahtzeeLowerSectionTest do
     upperTest = Yahtzee.score_upper(dices_test_two)
     lowerTest = Yahtzee.score_lower(dices_test_two)
 
-    assert %{Chance: ^sum} = lowerTest
+    assert %{Chance: 0} = lowerTest
     assert %{"Three of a kind": 0} = lowerTest
     assert %{"Four of a kind": 0} = lowerTest
     assert %{"Full house": 0} = lowerTest
@@ -136,7 +136,7 @@ defmodule YahtzeeLowerSectionTest do
     assert %{Twos: 1} = upperTest
     assert %{Threes: 1} = upperTest
     assert %{Fours: 1} = upperTest
-    assert %{Chance: ^sum} = lowerTest
+    assert %{Chance: 0} = lowerTest
     assert %{"Three of a kind": 0} = lowerTest
     assert %{"Four of a kind": 0} = lowerTest
     assert %{"Full house": 0} = lowerTest
@@ -152,7 +152,7 @@ defmodule YahtzeeLowerSectionTest do
 
     assert %{Ones: 3} = upperTest
     assert %{Twos: 2} = upperTest
-    assert %{Chance: ^sum} = lowerTest
+    assert %{Chance: 0} = lowerTest
     assert %{"Three of a kind": ^sum} = lowerTest
     assert %{"Four of a kind": 0} = lowerTest
     assert %{"Full house": 25} = lowerTest

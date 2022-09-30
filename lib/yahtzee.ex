@@ -148,6 +148,11 @@ defmodule Yahtzee do
           true -> 50
           _ -> 0
         end,
-      Chance: Enum.sum(dices)
+      Chance:
+        case chance_check(dices) do
+          true -> Enum.sum(dices)
+          _ -> 0
+        end
+      # always true
     }
 end
