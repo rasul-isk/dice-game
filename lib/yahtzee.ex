@@ -118,7 +118,7 @@ defmodule Yahtzee do
             Enum.sum(dices)
 
           _ ->
-            -1
+            0
         end,
       "Four of a kind":
         case four_of_a_kind(dices) do
@@ -126,27 +126,27 @@ defmodule Yahtzee do
             Enum.sum(dices)
 
           _ ->
-            -1
+            0
         end,
       "Full house":
         case full_house(dices) do
           true -> 25
-          _ -> -1
+          _ -> 0
         end,
       "Small straight":
         case !large_straight(dices) && small_straight(dices) do
           true -> 30
-          _ -> -1
+          _ -> 0
         end,
       "Large straight":
         case large_straight(dices) do
           true -> 40
-          _ -> -1
+          _ -> 0
         end,
       Yahtzee:
         case yahtzee(dices) do
           true -> 50
-          _ -> -1
+          _ -> 0
         end,
       Chance: Enum.sum(dices)
     }
