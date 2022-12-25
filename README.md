@@ -1,6 +1,6 @@
 # Yahtzee
 
-**TODO: Add description**
+Built well-known game "Yahtzee" with TDD approach in Elixir
 
 ## Installation
 
